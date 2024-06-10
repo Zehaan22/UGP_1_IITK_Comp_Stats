@@ -4,7 +4,7 @@ set.seed(42)
 # Problem : We want to run the MH algorithm to sample from a t dist.
 
 N <- 1e4
-k <- 10.5
+k <- 73
 iid.samples <- rt(n = N, df = k)
 plot(density(iid.samples))
 
@@ -40,7 +40,7 @@ t_mh <- function(N = 1e3, k, h){
   return(out.vect)
 }
 
-chain <- t_mh(N,k,10)
+chain <- t_mh(N,k,20)
 plot(density(iid.samples))
 lines(density(chain), col = "red")
 
