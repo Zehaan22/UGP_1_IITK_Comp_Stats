@@ -14,7 +14,7 @@ t_mh <- function(N = 1e3, k, h){
     prop.curr <- rnorm(1,out.vect[t-1],sqrt(h))
     y.curr <- prop.curr^3
     
-    alpha <- (dt(y.curr, k)*sqrt(out.vect[t-1]))/(dt(out.vect[t-1],k)*sqrt(y.curr)) # Since q is normal hence q(qbrt(x)|z)/q(qbrt(z)|x) = 1    
+    alpha <- (dt(prop.curr, k)*sqrt(abs(out.vect[t-1])))/(dt(out.vect[t-1],k)*sqrt(abs(y.curr))) # Since q is normal hence q(qbrt(x)|z)/q(qbrt(z)|x) = 1    
     
     alpha <- min(1,alpha)
     
