@@ -11,6 +11,14 @@ chain3 <- normalHMC(s = 5)
 ess(chain3)
 print("###########################")
 
+vals <- numeric(100)
+for(i in 1:100){
+  chain <- normalHMC(s = i)
+  vals[i] <- ess(chain)
+}
+par(mfrow = c(1,1))
+plot.ts(vals/1e4, main = "Cyclic nature of s", ylab = "ess/N")
+
 # Comparing the chains through plots
 par(mfrow = c(1,1))
 plot(density(chain1), col = "blue", main = "Theoretical HMC")
@@ -36,6 +44,43 @@ ess(chain2)
 chain3 <- normalLF_HMC(L = 100, eps = .01)
 ess(chain3)
 print("###########################")
+
+ess.heat.map.plt <- matrix(0,nrow = 50,ncol = 50)
+for(l in 1:50){
+  for(eps in 1:50){
+    chain <- normalLF_HMC(L = l, eps = eps/10)
+    ess.heat.map.plt[l,eps] <- ess(chain)
+  }
+  print(l)
+}
+
+library(ggplot2)
+
+# Dummy data
+L <- 1:50
+eps <- (1:50)/10
+data <- expand.grid(L=L, eps=eps)
+data$Ess <- c(ess.heat.map.plt)/1e4
+
+# Heatmap 
+ggplot(data, aes(L, eps, fill= Ess)) + 
+  geom_tile()
+
+
+# Create example data        
+data <- ess.heat.map.plt
+
+# Column names    
+colnames(data) <- (1:50)/10
+rownames(data) <- 1:50
+
+# Remove dendrogram
+# Manual color range
+my_colors <- colorRampPalette(c("yellow", "blue"))
+
+# Heatmap with margins around the plot
+heatmap(data, col = my_colors(100), main = "Heatmap for ESS/N", 
+        xlab = "Eps", ylab = "L",Colv = NA, Rowv = NA)
 
 # Comparing the chains through plots
 par(mfrow = c(1,1))
@@ -68,6 +113,19 @@ par(mfrow = c(1,1))
 plot(density(chain1), col = "blue", main = "NUTS Algorithm")
 lines(density(chain2), col = "green")
 lines(density(chain3), col = "red")
+lines(density(rnorm(1e4)), col = "black")
+legend("right", c(
+  "Truth",
+  "eps = .1",
+  "eps = 1",
+  "eps = .01"
+),
+fill = c(
+  "black",
+  "blue",
+  "green",
+  "red"
+))
 
 par(mfrow = c(3,1))
 plot.ts(chain1, col = "blue", main = "NUTS Algorithm | e = 0.1")

@@ -25,13 +25,26 @@ chain2 <- normalHMC(s = 1)
 chain3 <- normalHMC(s = 5)
 
 # Comparing the chains through plots
-plot(density(chain1), col = "blue")
+plot(density(chain1), col = "blue", main = "Density from HMC sampling")
 lines(density(chain2), col = "green")
 lines(density(chain3), col = "red")
+lines(density(rnorm(1e4)), col = "black")
+legend("right", c(
+  "Truth",
+  "S = .1",
+  "S = 1",
+  "S = 5"
+),
+fill = c(
+  "black",
+  "blue",
+  "green",
+  "red"
+))
 
-plot.ts(chain1, col = "blue")
-plot.ts(chain2, col = "green")
-plot.ts(chain3, col = "red")
+plot.ts(chain1, col = "blue", ylab = "", main = "Time Series Plot for the HMC Samples")
+lines(chain2, col = rgb(0,1, 0, alpha = 0.6))
+lines(chain3, col = rgb(1,0, 0, alpha = 0.4))
 
 ## Leap Frog method
 
@@ -74,3 +87,24 @@ normalLF_HMC <- function(L = 10, eps = .1, n = 1e4)
 chain1 <- normalLF_HMC(L = 10, eps = .1)
 chain2 <- normalLF_HMC(L = 1, eps = 1)
 chain3 <- normalLF_HMC(L = 100, eps = .01)
+
+plot(density(chain1), col = "blue", main = "Density from HMC sampling")
+lines(density(chain2), col = "green")
+lines(density(chain3), col = "red")
+lines(density(rnorm(1e4)), col = "black")
+legend("right", c(
+  "Truth",
+  "L = 10, eps = .1",
+  "L = 1, eps = 1",
+  "L = 100, eps = .01"
+),
+fill = c(
+  "black",
+  "blue",
+  "green",
+  "red"
+))
+
+plot.ts(chain1, col = "blue", ylab = "", main = "Time Series Plot for the HMC Samples")
+lines(chain2, col = rgb(0,1, 0, alpha = 0.6))
+lines(chain3, col = rgb(1,0, 0, alpha = 0.4))

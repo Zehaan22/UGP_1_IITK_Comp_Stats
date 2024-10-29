@@ -6,7 +6,7 @@ set.seed(42)
 N <- 1e4
 k <- 73
 iid.samples <- rt(n = N, df = k)
-plot(density(iid.samples))
+plot(density(iid.samples), main = paste("Density for T dist with",k,"DoF"))
 
 # Density function is dt
 
@@ -41,9 +41,10 @@ t_mh <- function(N = 1e3, k, h){
 }
 
 chain <- t_mh(N,k,20)
-plot(density(iid.samples))
+plot(density(iid.samples), main = "Sampling from T Dist with 73 DoF")
 lines(density(chain), col = "red")
+legend("right", c("Truth", "MH Samples"), fill = c("black","red" ))
 
-plot.ts(iid.samples)
+plot.ts(iid.samples, ylab = "", main = "Time Series Plot for the MH Samples")
 lines(1:N,chain,col = "red")
 ##############################
