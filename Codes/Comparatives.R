@@ -1,3 +1,4 @@
+setwd("~/Research/UGP_1_IITK_Comp_Stats/Codes")
 source("Toy_NUTS.R")
 library(mcmcse)
 
@@ -24,6 +25,21 @@ par(mfrow = c(1,1))
 plot(density(chain1), col = "blue", main = "Theoretical HMC")
 lines(density(chain2), col = "green")
 lines(density(chain3), col = "red")
+lines(density(rnorm(1e4)), col = "black")
+legend("right", c(
+  "Truth",
+  "eps = .1",
+  "eps = 1",
+  "eps = .01"
+),
+fill = c(
+  "black",
+  "blue",
+  "green",
+  "red"
+))
+
+
 
 par(mfrow = c(3,1))
 plot.ts(chain1, col = "blue", main = "Theoretical HMC | s = 0.1")
@@ -87,6 +103,19 @@ par(mfrow = c(1,1))
 plot(density(chain1), col = "blue", main = "Leap Frog")
 lines(density(chain2), col = "green")
 lines(density(chain3), col = "red")
+lines(density(rnorm(1e4)), col = "black")
+legend("right", c(
+  "Truth",
+  "eps = .1",
+  "eps = 1",
+  "eps = .01"
+),
+fill = c(
+  "black",
+  "blue",
+  "green",
+  "red"
+))
 
 par(mfrow = c(3,1))
 plot.ts(chain1, col = "blue", main = "Leap Frog | L = 10 e = 0.1")

@@ -41,10 +41,13 @@ t_mh <- function(N = 1e3, k, h){
 }
 
 chain <- t_mh(N,k,20)
+par(mfrow = c(1,1))
 plot(density(iid.samples), main = "Sampling from T Dist with 73 DoF")
 lines(density(chain), col = "red")
 legend("right", c("Truth", "MH Samples"), fill = c("black","red" ))
 
-plot.ts(iid.samples, ylab = "", main = "Time Series Plot for the MH Samples")
+plot.ts(iid.samples, ylab = "", 
+        main = "Comparing Time variability of  IID samples and MH chain")
 lines(1:N,chain,col = "red")
+legend("topright", c("Truth", "MH Samples"), fill = c("black","red" ))
 ##############################
