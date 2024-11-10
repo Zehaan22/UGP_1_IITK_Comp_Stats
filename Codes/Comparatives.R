@@ -28,9 +28,9 @@ lines(density(chain3), col = "red")
 lines(density(rnorm(1e4)), col = "black")
 legend("right", c(
   "Truth",
-  "eps = .1",
-  "eps = 1",
-  "eps = .01"
+  "s = .1",
+  "s = 1",
+  "s = 5"
 ),
 fill = c(
   "black",
@@ -42,13 +42,14 @@ fill = c(
 
 
 par(mfrow = c(3,1))
-plot.ts(chain1, col = "blue", main = "Theoretical HMC | s = 0.1")
-plot.ts(chain2, col = "green", main = "Theoretical HMC | s = 1")
-plot.ts(chain3, col = "red", main = "Theoretical HMC | s = 5")
+plot.ts(chain1, col = "blue", main = "Theoretical HMC | s = 0.1", cex.main = 2)
+plot.ts(chain2, col = "green", main = "Theoretical HMC | s = 1", cex.main = 2)
+plot.ts(chain3, col = "red", main = "Theoretical HMC | s = 5", cex.main = 2)
 
-acf(chain1, main = "Theoretical HMC | s = 0.1")
-acf(chain2, main = "Theoretical HMC | s = 1")
-acf(chain3, main = "Theoretical HMC | s = 5")
+par(cex.main = 2)
+acf(chain1, main = "Theoretical HMC | s = 0.1", cex.main = 3)
+acf(chain2, main = "Theoretical HMC | s = 1",  cex.main = 3)
+acf(chain3, main = "Theoretical HMC | s = 5", cex.main = 3)
 
 # For LeapFrog
 #Keeping L * epsilon = 1

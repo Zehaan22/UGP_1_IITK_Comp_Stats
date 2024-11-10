@@ -1,3 +1,4 @@
+library(mcmcse)
 ## Standard Theoretical HMC
 normalHMC <- function(s = 1, n = 1e4)
 {
@@ -20,6 +21,14 @@ normalHMC <- function(s = 1, n = 1e4)
   return(qt)
 }
 
+test.length <- 100
+n <- 1e4
+vals <- numeric(test.length)
+for(s in 1:test.length){
+  chain <- normalHMC(s/10)
+  vals[s] <- ess(chain,n)
+}
+plot((1:test.length)/10,vals, xlab = "s", ylab = "ESS", main = "ESS values for diffrent choices of s", "l")
 chain1 <- normalHMC(s = .1)
 chain2 <- normalHMC(s = 1)
 chain3 <- normalHMC(s = 5)
