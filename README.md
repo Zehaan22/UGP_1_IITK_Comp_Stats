@@ -1,3 +1,5 @@
+# Owned by Zehaan Naik
+
 # HMC and No U-turn Sampler
 
 Project repository for the reports and programs for my first undergraduate project at IIT Kanpur, supervised by Prof. Dootika Vats. This repository contains analysis code (R), supporting figures, and final report submissions related to applied problems in computational statistics.
